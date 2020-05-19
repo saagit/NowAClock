@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>This device is now a clock.</title>
+    <style type='text/css'>
+      body {
+          font-family: 'Noto Sans', sans-serif;
+          text-align: center;
+          cursor: none;
+          background-color: black;
+          color: white;
+      }
+      #date {
+          font-size: 4em;
+          display: flex;
+          justify-content: center;
+      }
+      #time {
+          font-size: 6em;
+          font-weight: bold;
+          display: flex;
+          justify-content: center;
+      }
+      #astro {
+          display: flex;
+          justify-content: center;
+      }
+    </style>
+  </head>
+  <body onload='startTime()'>
+    <div id='date'>
+    </div>
+    <div id='time'>
+    </div>
+    <div id='astro'>
+    </div>
+    <script>
+      function startTime() {
+        var now = new Date();
+        document.getElementById('time').innerHTML =
+          now.toLocaleTimeString([], {hour12: true,
+				      hour: 'numeric',
+				      minute: 'numeric'});
+        document.getElementById('date').innerHTML =
+          now.toLocaleDateString([], {weekday: 'long',
+				      month: 'long',
+				      day: 'numeric'}).replace(',', '');
+        now = new Date();
+        var next_minute = (60 - now.getSeconds()) * 1000 - now.getMilliseconds();
+        setTimeout(startTime, next_minute);
+      }
+    </script>
+  </body>
+</html>
