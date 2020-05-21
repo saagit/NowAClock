@@ -36,6 +36,13 @@
     <script src='suncalc/suncalc.js' type='text/javascript'>
     </script>
     <script>
+      function moonPhase(date) {
+          var moonIllum = SunCalc.getMoonIllumination(date);
+          var phasePercent = (moonIllum.phase * 100).toFixed(0) + '%'
+          var phaseImg = (moonIllum.phase * 16).toFixed(0) % 16
+          phaseImg = phaseImg.toString().padStart(2, 0);
+          return phasePercent + '<img src="MoonPhases/moon' + phaseImg + '.jpg">'
+      }
       function startTime() {
         var now = new Date();
         document.getElementById('time').innerHTML =
@@ -46,10 +53,7 @@
           now.toLocaleDateString([], {weekday: 'long',
                                       month: 'long',
                                       day: 'numeric'}).replace(',', '');
-        var moonIllum = SunCalc.getMoonIllumination(now);
-        var phase = moonIllum.phase * 100;
-        document.getElementById('astro').innerHTML =
-          ' Moon phase: ' + phase.toFixed(0) + '%';
+        document.getElementById('astro').innerHTML = moonPhase(now);
         now = new Date();
         var next_minute = (60 - now.getSeconds()) * 1000 - now.getMilliseconds();
         setTimeout(startTime, next_minute);
