@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang='en'>
   <head>
     <title>This device is now a clock.</title>
     <style>
@@ -26,7 +26,7 @@
       }
     </style>
   </head>
-  <body onload='startTime()'>
+  <body onload='initialize()'>
     <div id='date'>
     </div>
     <div id='time'>
@@ -40,12 +40,12 @@
         var now = new Date();
         document.getElementById('time').innerHTML =
           now.toLocaleTimeString([], {hour12: true,
-				      hour: 'numeric',
-				      minute: 'numeric'});
+                                      hour: 'numeric',
+                                      minute: 'numeric'});
         document.getElementById('date').innerHTML =
           now.toLocaleDateString([], {weekday: 'long',
-				      month: 'long',
-				      day: 'numeric'}).replace(',', '');
+                                      month: 'long',
+                                      day: 'numeric'}).replace(',', '');
         var moonIllum = SunCalc.getMoonIllumination(now);
         var phase = moonIllum.phase * 100;
         document.getElementById('astro').innerHTML =
@@ -53,6 +53,9 @@
         now = new Date();
         var next_minute = (60 - now.getSeconds()) * 1000 - now.getMilliseconds();
         setTimeout(startTime, next_minute);
+      }
+      function initialize() {
+          startTime();
       }
     </script>
   </body>
