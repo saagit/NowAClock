@@ -6,7 +6,7 @@
       body {
           font-family: 'Noto Sans', sans-serif;
           text-align: center;
-          background-color: black;
+          background-color: #000020;
           color: white;
       }
       img {
@@ -50,7 +50,7 @@
           var phaseImg = (moonIllum.phase * 16).toFixed(0) % 16
           phaseImg = phaseImg.toString().padStart(2, 0);
           return phasePercent +
-              '<img src="MoonPhases/moon' + phaseImg + '.jpg">'
+              '<img src="MoonPhases/moon' + phaseImg + '.png">'
       }
       function startTime() {
           var now = new Date();
