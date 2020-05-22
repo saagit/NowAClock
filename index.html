@@ -49,26 +49,28 @@
           var phasePercent = (moonIllum.phase * 100).toFixed(0) + '%'
           var phaseImg = (moonIllum.phase * 16).toFixed(0) % 16
           phaseImg = phaseImg.toString().padStart(2, 0);
-          return phasePercent + '<img src="MoonPhases/moon' + phaseImg + '.jpg">'
+          return phasePercent +
+              '<img src="MoonPhases/moon' + phaseImg + '.jpg">'
       }
       function startTime() {
-        var now = new Date();
-        document.getElementById('time').innerHTML =
-          now.toLocaleTimeString([], {hour12: true,
-                                      hour: 'numeric',
-                                      minute: 'numeric'});
-        document.getElementById('date').innerHTML =
-          now.toLocaleDateString([], {weekday: 'long',
-                                      month: 'long',
-                                      day: 'numeric'}).replace(',', '');
-        document.getElementById('astro').innerHTML = moonPhase(now);
-        now = new Date();
-        var next_minute = (60 - now.getSeconds()) * 1000 - now.getMilliseconds();
-        setTimeout(startTime, next_minute);
+          var now = new Date();
+          document.getElementById('time').innerHTML =
+              now.toLocaleTimeString([], {hour12: true,
+                                          hour: 'numeric',
+                                          minute: 'numeric'});
+          document.getElementById('date').innerHTML =
+              now.toLocaleDateString([], {weekday: 'long',
+                                          month: 'long',
+                                          day: 'numeric'}).replace(',', '');
+          document.getElementById('astro').innerHTML = moonPhase(now);
+          now = new Date();
+          var next_minute = (60 - now.getSeconds()) * 1000 -
+              now.getMilliseconds();
+          setTimeout(startTime, next_minute);
       }
       function initialize() {
           startTime();
       }
-    </script>
+      </script>
   </body>
 </html>
