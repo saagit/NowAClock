@@ -74,31 +74,50 @@
     </div>
     <script src='suncalc/suncalc.js' type='text/javascript'></script>
     <script>
+
+      moonPhase.lastPercent = '';
+      moonPhase.lastPhase = '';
       function moonPhase(date) {
           var moonIllum = SunCalc.getMoonIllumination(date);
-          var phasePercent = (moonIllum.phase * 100).toFixed(0) + '%'
+
           var phaseImg = (moonIllum.phase * 16).toFixed(0) % 16
           phaseImg = phaseImg.toString().padStart(2, 0);
-          document.getElementById('phaseImg').innerHTML =
-              '<img src="MoonPhases/moon' + phaseImg + '.png">';
-          document.getElementById('phasePercent').innerHTML = phasePercent;
+          if (phaseImg != moonPhase.lastPhase) {
+              document.getElementById('phaseImg').innerHTML =
+                  '<img src="MoonPhases/moon' + phaseImg + '.png">';
+              moonPhase.lastPhase = phaseImg;
+          }
+
+          var phasePercent = (moonIllum.phase * 100).toFixed(0) + '%'
+          if (phasePercent != moonPhase.lastPercent) {
+              document.getElementById('phasePercent').innerHTML = phasePercent;
+              moonPhase.lastPercent = phasePercent;
+          }
       }
+
+      startTime.last_date = ''
       function startTime() {
           var now = new Date();
           document.getElementById('time').innerHTML =
               now.toLocaleTimeString([], {hour12: true,
                                           hour: 'numeric',
                                           minute: 'numeric'});
-          document.getElementById('date').innerHTML =
-              now.toLocaleDateString([], {weekday: 'long',
-                                          month: 'long',
-                                          day: 'numeric'}).replace(',', '');
+          var date = now.toLocaleDateString([],
+                                            {weekday: 'long',
+                                             month: 'long',
+                                             day: 'numeric'}).replace(',', '');
+          if (date != startTime.last_date) {
+              document.getElementById('date').innerHTML = date;
+              startTime.last_date = date;
+          }
           moonPhase(now);
           now = new Date();
           var next_minute = (60 - now.getSeconds()) * 1000 -
               now.getMilliseconds();
           setTimeout(startTime, next_minute);
       }
+
+
       function fullScreen() {
           var elem=document.documentElement;
           if (elem.requestFullscreen) {
